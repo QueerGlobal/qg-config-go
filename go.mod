@@ -1,3 +1,3 @@
-module github.com/QueerGlobal/config
+module github.com/QueerGlobal/qg-config-go
 
 go 1.18
