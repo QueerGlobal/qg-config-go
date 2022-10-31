@@ -1,0 +1,9 @@
+{
+	"ConfigType" : "envvar",
+    "Environment" : "unittest",
+    "ConfigTTL" : "10s",
+    "Aliases" : {
+        "test1": "TEST_ENV_VAR", 
+        "test2": "TEST_ENV_VAR2"
+    }
+}
