@@ -14,7 +14,7 @@ The general structure of an init file is as follows:
 
 ```json
 {
-	"ConfigType" : "type-of-configuration-reader",
+    "ConfigType" : "type-of-configuration-reader",
     "Environment" : "dev",
     "ConfigTTL" : "10s",
     "Aliases" : {
@@ -30,10 +30,10 @@ The general structure of an init file is as follows:
 Where: 
 
 - ConfigType describes the type of configuration (current allowed values are json or envvar)
--  Environment is the environment for which this configuration applies.
+- Environment is the environment for which this configuration applies.
 - ConfigTTL is a go duration string which tells us how often the config library should refresh values from the source
 - Aliases describe variable names we'd like to use to access a given config value from inside our program
--  InitValues is an object containing values specific to the specific ConfigType. For example, json config would contain the file name from which to read. A hypothetical S3 bucket reader might contain the bucket name and config path.
+- InitValues is an object containing values specific to the specific ConfigType. For example, json config would contain the file name from which to read. A hypothetical S3 bucket reader might contain the bucket name and config path.
 
 ### Examples
 
@@ -42,14 +42,14 @@ Example JSON-config init file:
 
 ```json
 {
-	"ConfigType" : "json",
+    "ConfigType" : "json",
     "Environment" : "unittest",
     "ConfigTTL" : "10s",
     "Aliases" : {
         "test1": "testvalues.test1", 
         "test2": "testvalues.testObj.test2"
     },
-	"InitValues" : {
+    "InitValues" : {
         "Path" : "unittest-config.json"
     }
 }
