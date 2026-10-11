@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -101,7 +101,7 @@ func NewConfigFetcher(params *InitParams) (ConfigFetcher, error) {
 			envFetcher, err := NewEnvVarFetcher(params)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"could not load local JSON config fetcher: %w", err)
+					"could not load environment variable config fetcher: %w", err)
 			}
 			return envFetcher, err
 		}
@@ -120,13 +120,20 @@ func NewInitParams(initPath *string) (*InitParams, error) {
 		initFile, err := os.Open(*initPath)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"unable to open config file %s", *initPath)
+				"unable to open config file %s: %w", *initPath, err)
 		}
 		defer initFile.Close()
 
-		initBytes, _ := ioutil.ReadAll(initFile)
+		initBytes, err := io.ReadAll(initFile)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"unable to read config file %s: %w", *initPath, err)
+		}
 
-		json.Unmarshal(initBytes, &init)
+		if err := json.Unmarshal(initBytes, &init); err != nil {
+			return nil, fmt.Errorf(
+				"unable to parse config file %s: %w", *initPath, err)
+		}
 
 	}
 	return &init, nil
