@@ -31,7 +31,7 @@ Where:
 
 - ConfigType describes the type of configuration (current allowed values are json or envvar)
 - Environment is the environment for which this configuration applies.
-- ConfigTTL is a go duration string which tells us how often the config library should refresh values from the source
+- ConfigTTL controls how often the config library refreshes values from the source. Use a Go duration string (for example `10s`, `5m`, `1h30m`), or a plain integer (JSON number or decimal string) interpreted as **seconds**. Omit the field, use `0`, or `"0s"` for no TTL (values are not refreshed on a timer). Negative values are rejected with an error.
 - Aliases describe variable names we'd like to use to access a given config value from inside our program
 - InitValues is an object containing values specific to the specific ConfigType. For example, json config would contain the file name from which to read. A hypothetical S3 bucket reader might contain the bucket name and config path.
 
@@ -120,7 +120,7 @@ Where:
 
 - ConfigType describes the type of configuration (current allowed values are json or envvar)
 -  Environment is the environment for which this configuration applies.
-- ConfigTTL is a go duration string which tells us how often the config library should refresh values from the source
+- ConfigTTL controls how often the config library refreshes values from the source. Use a Go duration string (for example `10s`, `5m`, `1h30m`), or a plain integer (JSON number or decimal string) interpreted as **seconds**. Omit the field, use `0`, or `"0s"` for no TTL (values are not refreshed on a timer). Negative values are rejected with an error.
 - Aliases describe variable names we'd like to use to access a given config value from inside our program
 -  InitValues is an object containing values specific to the specific ConfigType. For example, json config would contain the file name from which to read. A hypothetical S3 bucket reader might contain the bucket name and config path.
 

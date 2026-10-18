@@ -16,7 +16,6 @@
 package configuration
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -130,10 +129,12 @@ func NewInitParams(initPath *string) (*InitParams, error) {
 				"unable to read config file %s: %w", *initPath, err)
 		}
 
-		if err := json.Unmarshal(initBytes, &init); err != nil {
+		decoded, err := decodeInitParamsJSON(initBytes)
+		if err != nil {
 			return nil, fmt.Errorf(
 				"unable to parse config file %s: %w", *initPath, err)
 		}
+		init = *decoded
 
 	}
 	return &init, nil
